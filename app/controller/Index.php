@@ -36,7 +36,7 @@ class Index
     public function getAllPeople(): Json
     {
         try {
-            $data = (new Peoples())->where('sn','>=',1)->find();
+            $data = (new Peoples())->where('sn','>=',1)->select();   // find只返回满足条件的第一条记录
             if ($data == null) {
                 $count = 0;
             }else {
@@ -48,7 +48,7 @@ class Index
                 "count" =>  $count,
                 "data" => $data
             ];
-            Log::write('getCount rsp: '.json_encode($res));
+            Log::write('getAllPeople rsp: '.json_encode($res));
             return json($res);
 
         } catch (Error $e) {
@@ -57,7 +57,7 @@ class Index
                 "data" => [],
                 "errorMsg" => ("查询计数异常" . $e->getMessage())
             ];
-            Log::write('getCount rsp: '.json_encode($res));
+            Log::write('getAllPeople rsp: '.json_encode($res));
             return json($res);
         }
     }
