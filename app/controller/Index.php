@@ -40,7 +40,7 @@ class Index
             if ($data == null) {
                 $count = 0;
             }else {
-                $count = $data["count"];
+                $count = count($data);
             }
 
             $res = [
