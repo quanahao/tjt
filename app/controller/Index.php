@@ -14,6 +14,7 @@ namespace app\controller;
 use Error;
 use Exception;
 use app\model\Counters;
+use app\model\Peoples;
 use think\response\Html;
 use think\response\Json;
 use think\facade\Log;
@@ -31,6 +32,35 @@ class Index
         return response(file_get_contents(dirname(dirname(__FILE__)).'/view/index.html'));
     }
 
+
+    public function getAllPeople(): Json
+    {
+        try {
+            $data = (new Peoples())->find();
+            if ($data == null) {
+                $count = 0;
+            }else {
+                $count = $data["count"];
+            }
+
+            $res = [
+                "code" => 0,
+                "count" =>  $count,
+                "data" => $data
+            ];
+            Log::write('getCount rsp: '.json_encode($res));
+            return json($res);
+
+        } catch (Error $e) {
+            $res = [
+                "code" => -1,
+                "data" => [],
+                "errorMsg" => ("查询计数异常" . $e->getMessage())
+            ];
+            Log::write('getCount rsp: '.json_encode($res));
+            return json($res);
+        }
+    }
 
     /**
      * 获取todo list
