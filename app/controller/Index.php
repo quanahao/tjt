@@ -36,7 +36,7 @@ class Index
     public function getAllPeople(): Json
     {
         try {
-            $data = (new Peoples())->find();
+            $data = (new Peoples())->where('sn','>=',1)->find();
             if ($data == null) {
                 $count = 0;
             }else {
