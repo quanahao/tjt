@@ -47,7 +47,7 @@ class Index
             }
             $res = [
                 "code" => 0,
-                "data" =>  $count
+                "data" =>  $count+1000
             ];
             Log::write('getCount rsp: '.json_encode($res));
             return json($res);
